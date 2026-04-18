@@ -1,0 +1,232 @@
+/* 3D Animation Effects */
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes float-delayed {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-30px);
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bounce-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes tilt {
+    0%, 100% {
+        transform: rotateY(-5deg) rotateX(5deg);
+    }
+    50% {
+        transform: rotateY(5deg) rotateX(-5deg);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+    animation: float-delayed 8s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 3s ease-in-out infinite;
+}
+
+.animate-tilt {
+    animation: tilt 10s ease-in-out infinite;
+}
+
+/* 3D Card Effects */
+.card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-3d:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg) scale(1.02);
+}
+
+.card-3d-shadow {
+    box-shadow: 
+        0 10px 30px -5px rgba(0, 0, 0, 0.1),
+        0 20px 40px -10px rgba(0, 0, 0, 0.05),
+        0 0 60px -15px rgba(255, 107, 107, 0.15);
+}
+
+.card-3d:hover .card-3d-shadow {
+    box-shadow: 
+        0 20px 50px -5px rgba(0, 0, 0, 0.15),
+        0 30px 60px -10px rgba(0, 0, 0, 0.1),
+        0 0 80px -15px rgba(255, 107, 107, 0.25);
+}
+
+/* 3D Button Effect */
+.btn-3d {
+    transform-style: preserve-3d;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+}
+
+.btn-3d::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    border-radius: inherit;
+    transform: translateZ(-10px);
+    opacity: 0.5;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-3d:hover {
+    transform: translateY(-5px) translateZ(20px);
+}
+
+.btn-3d:hover::before {
+    transform: translateZ(-20px);
+    opacity: 0.8;
+}
+
+.btn-3d:active {
+    transform: translateY(-2px) translateZ(10px);
+}
+
+/* Perspective Container */
+.perspective-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* 3D Stat Card */
+.stat-card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.stat-card-3d:hover {
+    transform: translateZ(30px) rotateY(10deg);
+}
+
+/* 3D Timeline Dot */
+.timeline-dot-3d {
+    transform-style: preserve-3d;
+    box-shadow: 
+        0 0 0 4px white,
+        0 0 0 6px rgba(255, 107, 107, 0.3),
+        0 5px 15px rgba(255, 107, 107, 0.4);
+}
+
+/* 3D Skill Bar */
+.skill-bar-3d {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.skill-bar-3d::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(255, 107, 107, 0.3), rgba(255, 107, 107, 0.1));
+    transform: translateZ(-5px);
+    border-radius: inherit;
+}
+
+/* Parallax Layer */
+.parallax-layer {
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+}
+
+/* 3D Text Effect */
+.text-3d {
+    text-shadow: 
+        1px 1px 0 rgba(0, 0, 0, 0.1),
+        2px 2px 0 rgba(0, 0, 0, 0.08),
+        3px 3px 0 rgba(0, 0, 0, 0.06),
+        4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Glass Morphism 3D */
+.glass-3d {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px 0 rgba(31, 38, 135, 0.1),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Floating Animation for Icons */
+.icon-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* 3D Project Card */
+.project-card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card-3d:hover {
+    transform: translateY(-15px) rotateX(2deg);
+    box-shadow: 
+        0 25px 60px -10px rgba(0, 0, 0, 0.2),
+        0 0 100px -20px rgba(255, 107, 107, 0.3);
+}
+
+.project-card-3d img {
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.project-card-3d:hover img {
+    transform: scale(1.1) translateZ(20px);
+}
+
+/* 3D Education Card */
+.education-card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.education-card-3d:hover {
+    transform: translateY(-10px) rotateY(-3deg) rotateX(3deg);
+}
+
+/* Smooth Perspective Text */
+.perspective-text {
+    transform: perspective(500px);
+    transition: all 0.3s ease;
+}
+
+.perspective-text:hover {
+    transform: perspective(500px) translateZ(20px);
+}

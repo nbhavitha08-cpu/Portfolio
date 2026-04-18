@@ -19,17 +19,17 @@ const Education = () => {
         >
           {/* Section Title */}
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 text-3d" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               Education
             </h2>
             <div className="w-24 h-1 bg-orange-500 mx-auto"></div>
           </div>
 
-          {/* Education Card */}
-          <div className="max-w-3xl mx-auto">
-            <div className="bg-gradient-to-br from-orange-50 to-white rounded-3xl p-8 md:p-12 shadow-lg hover:shadow-2xl transition-all duration-500 border-2 border-orange-100 hover:border-orange-200">
+          {/* Education Card with 3D Effect */}
+          <div className="max-w-3xl mx-auto perspective-container">
+            <div className="education-card-3d glass-3d rounded-3xl p-8 md:p-12 border-2 border-orange-100">
               <div className="flex items-start gap-6">
-                <div className="bg-orange-500 p-4 rounded-2xl shadow-lg">
+                <div className="bg-orange-500 p-4 rounded-2xl shadow-lg icon-float">
                   <GraduationCap size={36} className="text-white" />
                 </div>
                 <div className="flex-1">
@@ -55,7 +55,7 @@ const Education = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white rounded-xl p-6 border border-orange-100">
+                  <div className="bg-white rounded-xl p-6 border border-orange-100 card-3d">
                     <p className="text-gray-700 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
                       Developed a strong foundation in <span className="font-semibold text-gray-900">design thinking</span>,{' '}
                       <span className="font-semibold text-gray-900">problem-solving</span>, and{' '}

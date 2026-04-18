@@ -1,11 +1,11 @@
-from fastapi import FastAPI, APIRouter
+from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, EmailStr, field_validator
 from typing import List
 import uuid
 from datetime import datetime, timezone
@@ -37,6 +37,41 @@ class StatusCheck(BaseModel):
 class StatusCheckCreate(BaseModel):
     client_name: str
 
+# Contact Form Models
+class ContactCreate(BaseModel):
+    name: str
+    email: EmailStr
+    message: str
+
+    @field_validator('name')
+    @classmethod
+    def validate_name(cls, v):
+        if len(v.strip()) < 2:
+            raise ValueError('Name must be at least 2 characters long')
+        return v.strip()
+
+    @field_validator('message')
+    @classmethod
+    def validate_message(cls, v):
+        if len(v.strip()) < 10:
+            raise ValueError('Message must be at least 10 characters long')
+        return v.strip()
+
+class Contact(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: str
+    message: str
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    status: str = "new"
+
+class ContactResponse(BaseModel):
+    success: bool
+    message: str
+    contact_id: str
+
 # Add your routes to the router instead of directly to app
 @api_router.get("/")
 async def root():
@@ -65,6 +100,50 @@ async def get_status_checks():
             check['timestamp'] = datetime.fromisoformat(check['timestamp'])
     
     return status_checks
+
+# Contact Form Endpoints
+@api_router.post("/contact", response_model=ContactResponse)
+async def create_contact(input: ContactCreate):
+    try:
+        # Create contact object
+        contact_dict = input.model_dump()
+        contact_obj = Contact(**contact_dict)
+        
+        # Convert to dict and serialize datetime to ISO string for MongoDB
+        doc = contact_obj.model_dump()
+        doc['timestamp'] = doc['timestamp'].isoformat()
+        
+        # Insert into MongoDB
+        await db.contacts.insert_one(doc)
+        
+        logger.info(f"New contact form submission from {contact_obj.email}")
+        
+        return ContactResponse(
+            success=True,
+            message="Message sent successfully! I'll get back to you soon.",
+            contact_id=contact_obj.id
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        logger.error(f"Error creating contact: {str(e)}")
+        raise HTTPException(status_code=500, detail="An error occurred while processing your request")
+
+@api_router.get("/contacts", response_model=List[Contact])
+async def get_contacts():
+    try:
+        # Exclude MongoDB's _id field from the query results
+        contacts = await db.contacts.find({}, {"_id": 0}).sort("timestamp", -1).to_list(1000)
+        
+        # Convert ISO string timestamps back to datetime objects
+        for contact in contacts:
+            if isinstance(contact['timestamp'], str):
+                contact['timestamp'] = datetime.fromisoformat(contact['timestamp'])
+        
+        return contacts
+    except Exception as e:
+        logger.error(f"Error fetching contacts: {str(e)}")
+        raise HTTPException(status_code=500, detail="An error occurred while fetching contacts")
 
 # Include the router in the main app
 app.include_router(api_router)

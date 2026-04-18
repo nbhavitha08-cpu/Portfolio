@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Mail, Github, Heart } from 'lucide-react';
+import { Linkedin, Mail, Heart } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -60,16 +60,10 @@ const Footer = () => {
                 <Linkedin size={20} />
               </a>
               <a
-                href="mailto:bhavitha@example.com"
+                href="mailto:nbhavitha04@gmail.com"
                 className="bg-gray-800 p-3 rounded-lg hover:bg-orange-500 transition-all duration-300 hover:scale-110"
               >
                 <Mail size={20} />
-              </a>
-              <a
-                href="#"
-                className="bg-gray-800 p-3 rounded-lg hover:bg-orange-500 transition-all duration-300 hover:scale-110"
-              >
-                <Github size={20} />
               </a>
             </div>
           </div>

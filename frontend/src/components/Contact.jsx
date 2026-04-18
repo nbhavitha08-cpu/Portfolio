@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useInView } from 'react-intersection-observer';
-import { Mail, Linkedin, Github, Send, CheckCircle } from 'lucide-react';
+import { Mail, Linkedin, Send } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { toast } from '../hooks/use-toast';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const Contact = () => {
   const { ref, inView } = useInView({
@@ -29,15 +33,26 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await axios.post(`${API}/contact`, formData);
+      
+      if (response.data.success) {
+        toast({
+          title: 'Message Sent! ✓',
+          description: response.data.message,
+        });
+        setFormData({ name: '', email: '', message: '' });
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.detail || 'Failed to send message. Please try again.';
       toast({
-        title: 'Message Sent!',
-        description: 'Thank you for reaching out. I\'ll get back to you soon.',
+        title: 'Error',
+        description: errorMessage,
+        variant: 'destructive',
       });
-      setFormData({ name: '', email: '', message: '' });
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -75,7 +90,7 @@ const Contact = () => {
               {/* Contact Methods */}
               <div className="space-y-6">
                 <a
-                  href="mailto:bhavitha@example.com"
+                  href="mailto:nbhavitha04@gmail.com"
                   className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 group"
                 >
                   <div className="bg-orange-100 p-3 rounded-lg group-hover:bg-orange-500 transition-colors duration-300">
@@ -83,7 +98,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>Email</p>
-                    <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>bhavitha@example.com</p>
+                    <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>nbhavitha04@gmail.com</p>
                   </div>
                 </a>
 
@@ -99,19 +114,6 @@ const Contact = () => {
                   <div>
                     <p className="font-semibold text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>LinkedIn</p>
                     <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>Bhavitha Naramamidi</p>
-                  </div>
-                </a>
-
-                <a
-                  href="#"
-                  className="flex items-center gap-4 p-4 bg-white rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 group"
-                >
-                  <div className="bg-orange-100 p-3 rounded-lg group-hover:bg-orange-500 transition-colors duration-300">
-                    <Github size={24} className="text-orange-500 group-hover:text-white transition-colors duration-300" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900" style={{ fontFamily: 'Inter, sans-serif' }}>GitHub</p>
-                    <p className="text-gray-600" style={{ fontFamily: 'Inter, sans-serif' }}>View Projects</p>
                   </div>
                 </a>
               </div>

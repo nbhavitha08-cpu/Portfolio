@@ -43,14 +43,14 @@ const Experience = () => {
         >
           {/* Section Title */}
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 text-3d" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               Experience
             </h2>
             <div className="w-24 h-1 bg-orange-500 mx-auto"></div>
           </div>
 
-          {/* Timeline */}
-          <div className="max-w-4xl mx-auto">
+          {/* Timeline with 3D Effects */}
+          <div className="max-w-4xl mx-auto perspective-container">
             {experiences.map((exp, index) => (
               <div
                 key={index}
@@ -63,18 +63,18 @@ const Experience = () => {
                   <div className="absolute left-[11px] md:left-[19px] top-12 bottom-0 w-0.5 bg-gray-300"></div>
                 )}
 
-                {/* Timeline Dot */}
-                <div className="absolute left-0 md:left-2 top-2 w-6 h-6 bg-orange-500 rounded-full border-4 border-white shadow-lg"></div>
+                {/* Timeline Dot with 3D Effect */}
+                <div className="absolute left-0 md:left-2 top-2 w-6 h-6 bg-orange-500 rounded-full timeline-dot-3d"></div>
 
-                {/* Content Card */}
-                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:scale-[1.02] border border-gray-100">
+                {/* Content Card with 3D Effect */}
+                <div className="bg-white rounded-2xl p-6 md:p-8 card-3d card-3d-shadow border border-gray-100">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'Montserrat, sans-serif' }}>
                         {exp.title}
                       </h3>
                       <div className="flex items-center gap-2 text-orange-500 font-semibold mb-2">
-                        <Briefcase size={18} />
+                        <Briefcase size={18} className="icon-float" />
                         <span style={{ fontFamily: 'Inter, sans-serif' }}>{exp.company}</span>
                       </div>
                     </div>
@@ -93,7 +93,7 @@ const Experience = () => {
                     {exp.skills.map((skill, idx) => (
                       <span
                         key={idx}
-                        className="px-4 py-2 bg-orange-50 text-orange-600 rounded-full text-sm font-medium hover:bg-orange-100 transition-colors duration-300"
+                        className="px-4 py-2 bg-orange-50 text-orange-600 rounded-full text-sm font-medium hover:bg-orange-100 transition-all duration-300 hover:scale-105"
                         style={{ fontFamily: 'Inter, sans-serif' }}
                       >
                         {skill}

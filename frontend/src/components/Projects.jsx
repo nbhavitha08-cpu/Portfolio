@@ -1,7 +1,6 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { ExternalLink, ArrowUpRight } from 'lucide-react';
-import { Button } from './ui/button';
+import { ArrowUpRight } from 'lucide-react';
 
 const Projects = () => {
   const { ref, inView } = useInView({
@@ -62,28 +61,29 @@ const Projects = () => {
         >
           {/* Section Title */}
           <div className="text-center mb-16">
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'Montserrat, sans-serif' }}>
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4 text-3d" style={{ fontFamily: 'Montserrat, sans-serif' }}>
               Projects
             </h2>
             <div className="w-24 h-1 bg-orange-500 mx-auto"></div>
           </div>
 
-          {/* Projects Grid */}
-          <div className="space-y-12">
+          {/* Projects Grid with 3D Effects */}
+          <div className="space-y-12 perspective-container">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className={`group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 delay-${index * 100} transform ${
+                className={`project-card-3d bg-white rounded-3xl overflow-hidden transition-all duration-500 delay-${index * 100} transform ${
                   inView ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-                } hover:scale-[1.01]`}
+                }`}
               >
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
-                  {/* Image Section */}
+                  {/* Image Section with 3D Effect */}
                   <div className="relative h-64 lg:h-full overflow-hidden bg-gray-100">
                     <img
                       src={project.image}
                       alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover"
+                      style={{ transformStyle: 'preserve-3d' }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
@@ -115,7 +115,7 @@ const Projects = () => {
                       {project.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-orange-50 hover:text-orange-600 transition-colors duration-300"
+                          className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-orange-50 hover:text-orange-600 transition-all duration-300 hover:scale-105"
                           style={{ fontFamily: 'Inter, sans-serif' }}
                         >
                           {tag}
