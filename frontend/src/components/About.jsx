@@ -42,7 +42,7 @@ const About = () => {
             </p>
 
             <p className="perspective-text">
-              Currently, I am working as an <span className="font-semibold text-gray-900">Associate Instructor at PHN Technology</span>, where I help learners understand concepts related to technology and design. Looking ahead, I aim to continue growing as a UI/UX and product-focused designer, combining my technical background with design expertise to build impactful, data-driven digital products that improve real-world user experiences.
+              Currently, I am working as an <span className="font-semibold text-gray-900">Associate Instructor at PHN Technology</span>, where I help learners understand concepts related to technology and design. <span className="font-semibold text-orange-500">For the past 10 months, I have been unofficially working as a UI/UX designer, independently handling 2 complete company projects without any design team</span> — demonstrating my ability to own the entire design process from research to delivery. Looking ahead, I aim to continue growing as a UI/UX and product-focused designer, combining my technical background with design expertise to build impactful, data-driven digital products that improve real-world user experiences.
             </p>
           </div>
 
