@@ -15,6 +15,5 @@ COPY . .
 # Expose port
 EXPOSE 8001
 
-# Start command (Railway/Render provides PORT env variable)
-# Use sh -c to properly expand PORT variable
-CMD ["sh", "-c", "uvicorn server:app --host 0.0.0.0 --port ${PORT:-8001}"]
+# Start command - Use Railway's PORT or default to 8001
+CMD ["sh", "-c", "exec uvicorn server:app --host 0.0.0.0 --port ${PORT:-8001}"]
