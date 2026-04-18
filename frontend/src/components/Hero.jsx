@@ -29,26 +29,84 @@ const Hero = () => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-      {/* 3D Floating Shapes */}
-      <div 
-        className="absolute top-20 right-10 w-72 h-72 bg-orange-100 rounded-full opacity-20 blur-3xl animate-float"
-        style={{
-          transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
-          transition: 'transform 0.3s ease-out',
-        }}
-      ></div>
-      <div 
-        className="absolute bottom-20 left-10 w-96 h-96 bg-orange-50 rounded-full opacity-30 blur-3xl animate-float-delayed"
-        style={{
-          transform: `translate(${-mousePosition.x}px, ${-mousePosition.y}px)`,
-          transition: 'transform 0.3s ease-out',
-        }}
-      ></div>
+      {/* Animated 3D Background Layers */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Large Floating Orbs with Parallax */}
+        <div 
+          className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-orange-200 to-orange-100 rounded-full opacity-30 blur-3xl animate-float"
+          style={{
+            transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
+            transition: 'transform 0.3s ease-out',
+          }}
+        ></div>
+        <div 
+          className="absolute bottom-20 left-10 w-96 h-96 bg-gradient-to-br from-orange-100 to-orange-50 rounded-full opacity-40 blur-3xl animate-float-delayed"
+          style={{
+            transform: `translate(${-mousePosition.x * 0.8}px, ${-mousePosition.y * 0.8}px)`,
+            transition: 'transform 0.3s ease-out',
+          }}
+        ></div>
+        <div 
+          className="absolute top-1/2 left-1/3 w-64 h-64 bg-gradient-to-br from-orange-300 to-orange-200 rounded-full opacity-20 blur-3xl animate-float"
+          style={{
+            transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
+            transition: 'transform 0.4s ease-out',
+            animationDelay: '2s',
+          }}
+        ></div>
 
-      {/* 3D Geometric Shapes */}
-      <div className="absolute top-1/4 left-1/4 w-20 h-20 border-4 border-orange-300 rotate-45 animate-spin-slow opacity-10"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-16 h-16 bg-orange-200 rounded-lg animate-bounce-slow opacity-20"></div>
-      <div className="absolute top-1/2 right-1/3 w-12 h-12 border-4 border-orange-400 rounded-full animate-pulse opacity-15"></div>
+        {/* Animated 3D Geometric Shapes */}
+        <div 
+          className="absolute top-1/4 left-1/4 w-20 h-20 border-4 border-orange-300 rotate-45 animate-spin-slow opacity-15"
+          style={{
+            transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px) rotate(45deg)`,
+            transition: 'transform 0.2s ease-out',
+          }}
+        ></div>
+        <div 
+          className="absolute bottom-1/3 right-1/4 w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-300 rounded-lg animate-bounce-slow opacity-25"
+          style={{
+            transform: `translate(${-mousePosition.x * 0.4}px, ${-mousePosition.y * 0.4}px)`,
+            transition: 'transform 0.3s ease-out',
+          }}
+        ></div>
+        <div 
+          className="absolute top-1/2 right-1/3 w-12 h-12 border-4 border-orange-400 rounded-full animate-pulse opacity-20"
+          style={{
+            transform: `translate(${mousePosition.x * 0.6}px, ${mousePosition.y * 0.6}px)`,
+            transition: 'transform 0.25s ease-out',
+          }}
+        ></div>
+
+        {/* Floating Dots/Particles */}
+        {[...Array(8)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-3 h-3 bg-orange-400 rounded-full opacity-30 animate-float"
+            style={{
+              top: `${15 + i * 12}%`,
+              left: `${10 + i * 10}%`,
+              transform: `translate(${mousePosition.x * (0.2 + i * 0.1)}px, ${mousePosition.y * (0.2 + i * 0.1)}px)`,
+              transition: `transform ${0.3 + i * 0.1}s ease-out`,
+              animationDelay: `${i * 0.5}s`,
+            }}
+          ></div>
+        ))}
+
+        {/* 3D Grid Lines */}
+        <div 
+          className="absolute top-0 left-0 w-full h-full opacity-5"
+          style={{
+            backgroundImage: 'linear-gradient(rgba(255, 107, 107, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 107, 107, 0.3) 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+            transform: `perspective(500px) rotateX(60deg) translateZ(-100px)`,
+          }}
+        ></div>
+
+        {/* Animated Rings */}
+        <div className="absolute top-1/3 right-1/4 w-32 h-32 border-2 border-orange-300 rounded-full opacity-10 animate-ping"></div>
+        <div className="absolute bottom-1/4 left-1/3 w-40 h-40 border-2 border-orange-200 rounded-full opacity-10 animate-ping" style={{ animationDelay: '1s' }}></div>
+      </div>
 
       <div className="container mx-auto px-6 lg:px-12 py-20 relative z-10">
         <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 transform ${
